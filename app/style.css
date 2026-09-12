@@ -1,0 +1,926 @@
+/* ==========================================================================
+   Antigravity & Lightness — Machine Learning Deployment CSS Stylesheet
+   Design Language: Deep Tech Slate, Indigo Action Glowing Anchors & Glassmorphism
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. CSS Custom Properties & Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Color Palette */
+    --bg-slate-deep: #1e222b;
+    --bg-slate-darker: #15181f;
+    --bg-card: rgba(30, 34, 43, 0.75);
+    --bg-card-glass: rgba(26, 30, 39, 0.65);
+    --bg-input: rgba(15, 18, 24, 0.6);
+    --bg-input-focus: rgba(20, 24, 33, 0.85);
+
+    /* Accents & Actions */
+    --indigo-primary: #4f46e5;
+    --indigo-hover: #4338ca;
+    --indigo-light: #6366f1;
+    --indigo-glow: rgba(79, 70, 229, 0.35);
+    --indigo-subtle: rgba(79, 70, 229, 0.12);
+
+    /* Predictions & Status */
+    --mint-success: #10b981;
+    --mint-glow: rgba(16, 185, 129, 0.4);
+    --mint-subtle: rgba(16, 185, 129, 0.15);
+    --cyan-accent: #06b6d4;
+    --amber-glow: rgba(16, 185, 129, 0.4);
+    --error-red: #ef4444;
+    --error-glow: rgba(239, 68, 68, 0.25);
+
+    /* Typography & Text */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-subtle: #64748b;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    /* Borders & Outlines */
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(99, 102, 241, 0.4);
+    --border-focus: #6366f1;
+    --ring-glow: 0 0 0 3px rgba(99, 102, 241, 0.3), 0 0 15px rgba(79, 70, 229, 0.25);
+
+    /* Elevation & Antigravity Shadows */
+    --shadow-antigravity: 0 20px 45px -10px rgba(0, 0, 0, 0.55), 
+                          0 0 30px 2px rgba(79, 70, 229, 0.12),
+                          inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+    --shadow-glow: 0 8px 30px -4px rgba(79, 70, 229, 0.5);
+    --shadow-card-hover: 0 28px 55px -12px rgba(0, 0, 0, 0.65), 
+                         0 0 40px 4px rgba(79, 70, 229, 0.18);
+
+    /* Layout & Spacing */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 9999px;
+
+    /* Transitions */
+    --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   2. Global Reset & Base Setup
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    color-scheme: dark;
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-slate-deep);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Background Antigravity Glow Effects */
+body::before {
+    content: '';
+    position: fixed;
+    top: -20%;
+    left: 20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, rgba(16, 185, 129, 0.05) 45%, transparent 70%);
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: floatGlow 14s ease-in-out infinite alternate;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    bottom: -10%;
+    right: 10%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, rgba(79, 70, 229, 0.08) 50%, transparent 70%);
+    filter: blur(90px);
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes floatGlow {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-30px, 40px) scale(1.1); }
+    100% { transform: translate(40px, -20px) scale(0.95); }
+}
+
+/* Ambient Skyline Background Canvas */
+.skyline-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.window-light {
+    position: absolute;
+    background-color: var(--mint-success);
+    border-radius: 50%;
+    opacity: 0.15;
+    box-shadow: 0 0 8px var(--mint-success);
+    animation: pulseLight 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseLight {
+    0% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.7; transform: scale(1.3); }
+    100% { opacity: 0.2; transform: scale(0.9); }
+}
+
+/* Subtle Texture Grain Overlay */
+.grain {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    opacity: 0.4;
+    z-index: 1;
+}
+
+/* Container */
+.page {
+    position: relative;
+    z-index: 2;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 3rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   3. Header / Hero Section
+   -------------------------------------------------------------------------- */
+.hero {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mint-success);
+    background: var(--mint-subtle);
+    border: 1px solid rgba(16, 185, 129, 0.25);
+    padding: 0.35rem 1rem;
+    border-radius: var(--radius-pill);
+    margin-bottom: 1.25rem;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+}
+
+.eyebrow .dot {
+    color: var(--indigo-light);
+    font-weight: bold;
+}
+
+.headline {
+    font-family: var(--font-heading);
+    font-size: clamp(2.25rem, 4.5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    color: var(--text-main);
+    background: linear-gradient(135deg, #ffffff 40%, var(--text-muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 1rem;
+}
+
+.subhead {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* --------------------------------------------------------------------------
+   4. Split-Screen Layout & Antigravity Floating Cards
+   -------------------------------------------------------------------------- */
+.grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 2rem;
+    align-items: start;
+    flex: 1;
+}
+
+.panel {
+    background: var(--bg-card-glass);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    box-shadow: var(--shadow-antigravity);
+    transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+}
+
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+
+.panel:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+.panel-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.75rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.panel-head h2 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Ghost Button ("Try an Example") */
+.ghost-btn {
+    background: transparent;
+    color: var(--indigo-light);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    border-radius: var(--radius-pill);
+    padding: 0.4rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.825rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.ghost-btn:hover {
+    background: var(--indigo-subtle);
+    border-color: var(--indigo-light);
+    color: var(--text-main);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.ghost-btn:active {
+    transform: translateY(0);
+}
+
+/* API Status Indicator Badge */
+.api-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(15, 18, 24, 0.6);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-subtle);
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--text-subtle);
+    transition: var(--transition-base);
+}
+
+.api-status.online .status-dot {
+    background-color: var(--mint-success);
+    box-shadow: 0 0 8px var(--mint-success);
+    animation: pulseDot 2s infinite;
+}
+
+.api-status.offline .status-dot {
+    background-color: var(--error-red);
+    box-shadow: 0 0 8px var(--error-red);
+}
+
+@keyframes pulseDot {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* --------------------------------------------------------------------------
+   5. Form Controls & Input Styling
+   -------------------------------------------------------------------------- */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+fieldset {
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    background: rgba(15, 18, 24, 0.25);
+    transition: border-color var(--transition-base);
+}
+
+fieldset:hover {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+legend {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 0 0.5rem;
+}
+
+.field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 0.85rem;
+}
+
+.field-row:last-child {
+    margin-bottom: 0;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+}
+
+.field:last-child {
+    margin-bottom: 0;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+
+/* Input Fields & Select Styling */
+input[type="number"],
+input[type="text"],
+select {
+    width: 100%;
+    background-color: var(--bg-input);
+    color: var(--text-main);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.65rem 0.9rem;
+    font-family: var(--font-sans);
+    font-size: 0.925rem;
+    line-height: 1.4;
+    outline: none;
+    transition: var(--transition-base);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+input[type="number"]::placeholder,
+input[type="text"]::placeholder {
+    color: var(--text-subtle);
+}
+
+/* Custom Select Arrow Styling */
+select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%94a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.85rem center;
+    background-size: 1rem;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+select option {
+    background-color: var(--bg-slate-darker);
+    color: var(--text-main);
+    padding: 0.5rem;
+}
+
+/* Smooth Focus Rings with Soft Blue/Indigo Glow */
+input[type="number"]:focus,
+input[type="text"]:focus,
+select:focus {
+    background-color: var(--bg-input-focus);
+    border-color: var(--border-focus);
+    box-shadow: var(--ring-glow);
+}
+
+input[type="number"]:hover:not(:focus),
+input[type="text"]:hover:not(:focus),
+select:hover:not(:focus) {
+    border-color: var(--border-hover);
+}
+
+/* Custom Range Slider */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--bg-input);
+    border-radius: var(--radius-pill);
+    outline: none;
+    margin: 0.75rem 0 0.5rem;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--indigo-light);
+    cursor: pointer;
+    border: 2px solid var(--text-main);
+    box-shadow: 0 0 10px var(--indigo-primary), 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: var(--transition-fast);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    background: var(--mint-success);
+    box-shadow: 0 0 14px var(--mint-success), 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--indigo-light);
+    cursor: pointer;
+    border: 2px solid var(--text-main);
+    box-shadow: 0 0 10px var(--indigo-primary), 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: var(--transition-fast);
+}
+
+.range-readout {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    text-align: right;
+}
+
+.range-readout span {
+    color: var(--mint-success);
+    font-weight: 600;
+}
+
+/* --------------------------------------------------------------------------
+   6. Visual Anchors: Animated "Predict" Action Button
+   -------------------------------------------------------------------------- */
+.predict-btn {
+    position: relative;
+    width: 100%;
+    padding: 0.95rem 1.75rem;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--text-main);
+    background: linear-gradient(135deg, var(--indigo-primary) 0%, var(--indigo-light) 60%, #4338ca 100%);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), filter var(--transition-base);
+    box-shadow: var(--shadow-glow);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+}
+
+/* Animated Shimmer Over Button */
+.predict-btn::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        transparent 45%,
+        rgba(255, 255, 255, 0.25) 50%,
+        transparent 55%
+    );
+    transform: rotate(30deg) translateX(-100%);
+    transition: transform 0.8s ease;
+}
+
+.predict-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 35px -6px rgba(79, 70, 229, 0.65), 0 0 20px rgba(16, 185, 129, 0.2);
+    filter: brightness(1.08);
+}
+
+.predict-btn:hover::before {
+    transform: rotate(30deg) translateX(100%);
+}
+
+.predict-btn:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+}
+
+.predict-btn:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Button Loading Spinner */
+.btn-spinner {
+    display: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--text-main);
+    animation: spin 0.8s linear infinite;
+}
+
+.predict-btn.loading .btn-spinner {
+    display: inline-block;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.form-error {
+    font-size: 0.85rem;
+    color: var(--error-red);
+    background: var(--error-glow);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    padding: 0.6rem 0.9rem;
+    border-radius: var(--radius-sm);
+    display: none;
+}
+
+.form-error:not(:empty) {
+    display: block;
+    animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* --------------------------------------------------------------------------
+   7. Prediction Output Panel (Glassmorphism Results Container)
+   -------------------------------------------------------------------------- */
+.result-panel {
+    display: flex;
+    flex-direction: column;
+    min-height: 520px;
+    background: linear-gradient(160deg, rgba(30, 34, 43, 0.8) 0%, rgba(20, 24, 33, 0.85) 100%);
+}
+
+/* Empty Placeholder Visual State */
+.result-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-muted);
+}
+
+.empty-buildings {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.6rem;
+    height: 120px;
+    margin-bottom: 1.5rem;
+}
+
+.mini-building {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px 4px 0 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.mini-building.small { width: 32px; height: 60px; }
+.mini-building.medium { width: 44px; height: 95px; }
+.mini-building.large { width: 36px; height: 75px; }
+
+.mini-building::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 6px 8px;
+}
+
+.result-empty p {
+    font-size: 0.925rem;
+    max-width: 260px;
+    line-height: 1.5;
+}
+
+/* Populated Result Content */
+.result-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Prediction Highlight Tag */
+.predicted-label {
+    background: linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(6, 182, 212, 0.08) 100%);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    text-align: center;
+    box-shadow: 0 8px 24px -6px rgba(16, 185, 129, 0.2);
+}
+
+.predicted-eyebrow {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--mint-success);
+    margin-bottom: 0.35rem;
+}
+
+.predicted-name {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 12px rgba(16, 185, 129, 0.3);
+}
+
+/* Building Graphics Visualization Row */
+.buildings-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    height: 160px;
+    padding: 0 0.5rem 0.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.building-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    justify-content: flex-end;
+    width: 30%;
+}
+
+.building {
+    width: 100%;
+    max-width: 60px;
+    height: var(--h, 20%);
+    background: rgba(15, 18, 24, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 6px 6px 0 0;
+    padding: 6px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px;
+    align-content: space-around;
+    transition: height 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
+}
+
+.win {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 2px;
+    aspect-ratio: 1;
+    transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.win.lit {
+    background-color: var(--mint-success);
+    box-shadow: 0 0 8px var(--mint-success), 0 0 12px rgba(16, 185, 129, 0.6);
+}
+
+.building-caption {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-top: 0.6rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Probabilities List & Progress Bars */
+.prob-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.prob-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: 0.35rem;
+    padding: 0.75rem 1rem;
+    background: rgba(15, 18, 24, 0.4);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    transition: var(--transition-base);
+}
+
+.prob-row.top {
+    background: rgba(79, 70, 229, 0.1);
+    border-color: rgba(79, 70, 229, 0.3);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+}
+
+.prob-row .name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.prob-row.top .name {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.prob-row .value {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.prob-row.top .value {
+    color: var(--mint-success);
+}
+
+.prob-track {
+    grid-column: 1 / -1;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.prob-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--indigo-primary), var(--indigo-light));
+    border-radius: var(--radius-pill);
+    transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.prob-row.top .prob-fill {
+    background: linear-gradient(90deg, var(--indigo-light), var(--mint-success));
+    box-shadow: 0 0 10px var(--mint-glow);
+}
+
+/* --------------------------------------------------------------------------
+   8. Footer
+   -------------------------------------------------------------------------- */
+.page-footer {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.825rem;
+    color: var(--text-subtle);
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.page-footer .dot {
+    margin: 0 0.4rem;
+    color: var(--indigo-light);
+}
+
+/* --------------------------------------------------------------------------
+   9. Responsive Breakpoints
+   -------------------------------------------------------------------------- */
+@media (max-width: 960px) {
+    .grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .panel {
+        padding: 1.5rem;
+    }
+
+    .hero {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 580px) {
+    .page {
+        padding: 1.5rem 1rem;
+    }
+
+    .field-row {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+    }
+
+    .panel-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .buildings-row {
+        height: 130px;
+    }
+
+    .building-caption {
+        font-size: 0.675rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   10. Accessibility & Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    body::before {
+        animation: none;
+    }
+}
